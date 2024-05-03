@@ -3,6 +3,7 @@
 import { Providers } from "./providers";
 import { Container } from "@chakra-ui/react";
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
