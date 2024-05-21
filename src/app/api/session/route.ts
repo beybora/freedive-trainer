@@ -1,16 +1,16 @@
 import connectMongoDB from "../../../../libs/mongodb";
 import Session from "../../../../models/session";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export async function GET(req: Request, res: Response) {
+export async function GET(req: NextRequest, res: NextResponse) {
   await connectMongoDB();
   const sessions = await Session.find();
   return NextResponse.json(sessions);
 }
 
-export async function POST(request: Request, res: Response) {
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
-    const requestBody = await request.json();
+    const requestBody = await req.json();
     const dives = requestBody?.dives;
 
     if (!dives) {

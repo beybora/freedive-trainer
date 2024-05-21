@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
+import { Session } from "@/constants/optionsAndTypes";
 
 /**
  * getDives
- *  @description  Fetches dives from the API
- * @returns  {Promise<any>}
+ *  @description  Fetches sessions from the API
+ * @returns  {Promise<Session[]>}
  */
-export const getDives = async () => {
-  const response = await fetch("/api/dives");
+export const getDives = async (): Promise<Session[]> => {
+  const response = await fetch("/api/session");
   return response.json();
+  // validate the response tzpe using zod
 };
 
 export const getDivesQueryKey = () => ["dives"];
