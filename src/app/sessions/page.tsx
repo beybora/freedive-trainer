@@ -38,8 +38,8 @@ export default function Dives() {
         <EditSessonModal onClose={onClose} isOpen={isOpen} />
         <Grid templateColumns="repeat(3, 1fr)" gap={6}>
           {data?.map((dive) => (
-            <GridItem>
-              <DiveCard key={dive._id} dive={dive} />
+            <GridItem key={dive._id}>
+              <DiveCard dive={dive} />
             </GridItem>
           ))}
         </Grid>
