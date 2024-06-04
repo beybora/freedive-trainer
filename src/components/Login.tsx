@@ -12,6 +12,8 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,6 +23,7 @@ const Login = () => {
     password: "",
   });
   const toast = useToast();
+  const router = useRouter();
 
   const handleInputChange = (e: any) => {
     setUser((prev) => ({
@@ -74,6 +77,16 @@ const Login = () => {
         });
         return;
       }
+
+      toast({
+        title: "Login successful",
+        status: "success",
+        duration: 2500,
+        isClosable: true,
+        position: "bottom",
+      });
+      router.push("/sessions")
+
     } catch (error: any) {
       toast({
         title: error.message,
