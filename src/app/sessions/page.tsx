@@ -2,21 +2,23 @@
 
 import AddNewEntryButton from "@/components/AddNewSessionButton";
 import DiveCard from "@/components/DiveCard";
-import { Box, VStack, Spinner, Grid, GridItem, useDisclosure } from "@chakra-ui/react";
-import { useDives, useGetDive } from "../api/hooks";
-import { useState, useEffect } from "react";
-import { useAppContext } from "@/context";
+import {
+  Box,
+  VStack,
+  Spinner,
+  Grid,
+  GridItem,
+  useDisclosure,
+  Button,
+} from "@chakra-ui/react";
+import { useDives } from "../api/hooks";
 import EditSessonModal from "@/components/EditSessionModal";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Dives() {
   const { data, isError, isLoading } = useDives();
-  const { diveId, setDiveId } = useAppContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const handleDiveId = (id: string) => {
-    setDiveId(id);
-    console.log("page.tsx - handleDiveId() : id", id);
-  };
+  const { data: session } = useSession();
 
   if (isLoading)
     return (
@@ -28,8 +30,12 @@ export default function Dives() {
   return (
     <main>
       <Box>
+        <Box>
+          {session && `Welcome ` + session.user?.name}{" "}
+          <Button onClick={() => signOut()}>Sign Out</Button>
+        </Box>
         <AddNewEntryButton />
-        <EditSessonModal onClose={onClose} isOpen={isOpen} /> 
+        <EditSessonModal onClose={onClose} isOpen={isOpen} />
         <Grid templateColumns="repeat(3, 1fr)" gap={6}>
           {data?.map((dive) => (
             <GridItem>
