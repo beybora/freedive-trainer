@@ -5,7 +5,7 @@ import { ChevronDownIcon, BellIcon } from "@chakra-ui/icons";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ProfileModal from "./ProfileModal";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/logo-white.png";
 
 import {
   Box,

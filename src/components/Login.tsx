@@ -133,7 +133,8 @@ const Login = () => {
         </InputGroup>
       </FormControl>
       <Button
-        colorScheme="blue"
+        color={"white"}
+        bg={"black"}
         width="100%"
         style={{ marginTop: 15 }}
         isLoading={loading}
