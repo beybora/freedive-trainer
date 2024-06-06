@@ -31,6 +31,8 @@ const NavBar = () => {
     setIsProfileModalOpen(false);
   };
 
+  if (!session) return null;
+
   return (
     <Box
       display="flex"
@@ -74,9 +76,7 @@ const NavBar = () => {
           </MenuList>
         </Menu>
       </Box>
-      {session && (
-        <ProfileModal isOpen={isProfileModalOpen} onClose={closeProfileModal} />
-      )}
+      <ProfileModal isOpen={isProfileModalOpen} onClose={closeProfileModal} />
     </Box>
   );
 };

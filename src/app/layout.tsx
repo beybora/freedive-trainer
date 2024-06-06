@@ -23,7 +23,6 @@ export default function RootLayout({
           </Container>
         </Providers>
       </body>
-      
     </html>
   );
 }
