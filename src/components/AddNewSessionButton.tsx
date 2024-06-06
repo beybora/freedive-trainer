@@ -9,7 +9,7 @@ const AddNewEntryButton = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Add dive!</Button>
+      <Button onClick={onOpen}>Add a session!</Button>
       <AddNewSessionModal isOpen={isOpen} onClose={onClose} />
     </>
   );
