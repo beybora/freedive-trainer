@@ -3,6 +3,7 @@
 import React, { useContext, useState } from "react";
 import { ChevronDownIcon, BellIcon } from "@chakra-ui/icons";
 import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import ProfileModal from "./ProfileModal";
 import Logo from "../assets/logo.png";
 
@@ -19,7 +20,7 @@ import {
 
 const NavBar = () => {
   const { data: session } = useSession();
-  console.log("session", session);
+  const router = useRouter();
 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false);
 
@@ -72,6 +73,12 @@ const NavBar = () => {
           <MenuList>
             <MenuItem onClick={openProfileModal}>My Profile</MenuItem>
             <MenuDivider />
+            <MenuItem onClick={() => router.push("/sessions")}>
+              My Sessions
+            </MenuItem>
+            <MenuItem onClick={() => router.push("/buddy-to-buddy")}>
+              Buddy up
+            </MenuItem>
             <MenuItem onClick={() => signOut()}>Logout</MenuItem>
           </MenuList>
         </Menu>
