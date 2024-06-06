@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useDives } from "../api/hooks";
 import EditSessonModal from "@/components/EditSessionModal";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 const Dives = () => {
   const { data, isError, isLoading } = useDives();
@@ -28,20 +28,55 @@ const Dives = () => {
     );
 
   return (
-    <main>
-      <Box>
-        <AddNewEntryButton />
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      width="100%"
+      h="91.5vh"
+      padding="15px"
+    >
+      <Box
+        display="flex"
+        flexDir="column"
+        alignItems="center"
+        padding={3}
+        borderRadius="lg"
+        bg="white"
+        width="100%"
+        borderWidth="1px"
+      >
+        <Box
+          pb={3}
+          px={3}
+          fontSize={{ base: "28px", md: "30px" }}
+          display="flex"
+          width="100%"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <AddNewEntryButton />
+        </Box>
+        <Box
+          display="flex"
+          flexDir="column"
+          padding={3}
+          bg="#F8F8F8"
+          width="100%"
+          height="100%"
+          overflowY="hidden"
+        >
+          <Grid templateColumns="repeat(3, 1fr)" gap={6} overflowY="scroll">
+            {data?.map((dive) => (
+              <GridItem key={dive._id}>
+                <DiveCard dive={dive} />
+              </GridItem>
+            ))}
+          </Grid>
+        </Box>
         <EditSessonModal onClose={onClose} isOpen={isOpen} />
-        <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-          {data?.map((dive) => (
-            <GridItem key={dive._id}>
-              <DiveCard dive={dive} />
-            </GridItem>
-          ))}
-        </Grid>
       </Box>
-    </main>
+    </Box>
   );
-}
+};
 
 export default Dives;
