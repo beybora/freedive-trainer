@@ -8,24 +8,21 @@ export async function middleware(request: NextRequest) {
     secret: process.env.NEXTAUTH_SECRET,
   });
 
-  const publicPaths = path === "/";
-  const protectedPaths = path.startsWith("/sessions"); // Assuming protected paths start with /sessions
+  console.log("token", token);
 
-  // Redirect with token to appropriate location (not just root)
+  const publicPaths = path === "/";
+  const protectedPaths = path.startsWith("/sessions");
   if (token) {
     if (publicPaths) {
-      // Redirect to a protected route (e.g., /dashboard)
       return NextResponse.redirect(new URL("/sessions", request.nextUrl));
     }
-    // Allow access to protected paths with token
     return NextResponse.next();
   }
 
-  // Redirect without token based on path
   if (protectedPaths) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
-  // Allow access to public paths without token
+
   return NextResponse.next();
 }
 
