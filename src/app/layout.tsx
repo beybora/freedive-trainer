@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
+import NavBar from "@/components/NavBar";
 import { Providers } from "./providers";
 import { Container } from "@chakra-ui/react";
-
 
 export default function RootLayout({
   children,
@@ -11,11 +11,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <title>Freedive Trainer</title>
+      </head>
       <body>
         <Providers>
-          <Container maxW="full" py={8} px={8}>{children}</Container>
+          <NavBar />
+          <Container maxW="full" py={8} px={8}>
+            {children}
+          </Container>
         </Providers>
       </body>
+      
     </html>
   );
 }

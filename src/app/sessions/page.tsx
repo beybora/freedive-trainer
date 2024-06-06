@@ -15,7 +15,7 @@ import { useDives } from "../api/hooks";
 import EditSessonModal from "@/components/EditSessionModal";
 import { signOut, useSession } from "next-auth/react";
 
-export default function Dives() {
+const Dives = () => {
   const { data, isError, isLoading } = useDives();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data: session } = useSession();
@@ -30,10 +30,6 @@ export default function Dives() {
   return (
     <main>
       <Box>
-        <Box>
-          {session && `Welcome ` + session.user?.name}{" "}
-          <Button onClick={() => signOut()}>Sign Out</Button>
-        </Box>
         <AddNewEntryButton />
         <EditSessonModal onClose={onClose} isOpen={isOpen} />
         <Grid templateColumns="repeat(3, 1fr)" gap={6}>
@@ -47,3 +43,5 @@ export default function Dives() {
     </main>
   );
 }
+
+export default Dives;
