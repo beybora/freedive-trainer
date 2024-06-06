@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
   console.log("token", token);
 
   const publicPaths = path === "/";
-  const protectedPaths = path.startsWith("/sessions");
+  const protectedPaths = path === "/sessions" || path === "/buddy-to-buddy" || path === "/sessions/[id]";
   if (token) {
     if (publicPaths) {
       return NextResponse.redirect(new URL("/sessions", request.nextUrl));
@@ -27,5 +27,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/sessions", "/sessions/[id]"],
+  matcher: ["/", "/buddy-to-buddy", "/sessions", "/sessions/[id]"],
 };
