@@ -65,7 +65,15 @@ const Dives = () => {
           height="100%"
           overflowY="hidden"
         >
-          <Grid templateColumns="repeat(3, 1fr)" gap={6} overflowY="scroll">
+          <Grid
+            templateColumns={{
+              base: "1fr",
+              md: "repeat(2, 1fr)",
+              lg: "repeat(3, 1fr)",
+            }}
+            gap={6}
+            overflowY="scroll"
+          >
             {data?.map((dive) => (
               <GridItem key={dive._id}>
                 <DiveCard dive={dive} />
