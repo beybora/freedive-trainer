@@ -15,6 +15,7 @@ import { useDives } from "../api/hooks";
 import EditSessonModal from "@/components/EditSessionModal";
 import { useSession } from "next-auth/react";
 import EditSessionModal from "@/components/EditSessionModal";
+import { useEditSession } from "../api/hooks/useEditSession";
 
 const Dives = () => {
   const { data, isError, isLoading } = useDives();
@@ -80,7 +81,7 @@ const Dives = () => {
           >
             {data?.map((dive) => (
               <GridItem key={dive._id}>
-                <DiveCard dive={dive} onEdit={handleEditOpen}  />
+                <DiveCard dive={dive} onEdit={handleEditOpen} />
               </GridItem>
             ))}
           </Grid>

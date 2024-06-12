@@ -21,24 +21,29 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import EditSessonModal from "./EditSessionModal";
+import { useAppContext } from "@/context";
 
 type Props = {
   dive: Session;
+  onEdit: () => void;
 };
 
-const DiveCard = ({ dive }: Props) => {
+const DiveCard = ({ dive, onEdit }: Props) => {
   const formattedDate = new Date(dive.createdAt).toDateString();
   const deleteDiveMutation = useDeleteDive();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { diveId, setDiveId } = useAppContext();
 
   const handleDelete = (id: string) => {
     deleteDiveMutation.mutate(id); // Call the hook with the dive id
   };
 
+  const handleEdit = () => {
+    setDiveId(dive._id);
+  };
 
   return (
     <>
-      <EditSessonModal onClose={onClose} isOpen={isOpen} />
       <Card position={"relative"} variant={"elevated"}>
         <HStack gap="5">
           <CloseButton
@@ -60,7 +65,10 @@ const DiveCard = ({ dive }: Props) => {
             fontSize="10px"
             size="sm"
             icon={<EditIcon />}
-            onClick={onOpen}
+            onClick={() => {
+              handleEdit();
+              onEdit();
+            }}
           />
         </CardHeader>
         <CardBody>
