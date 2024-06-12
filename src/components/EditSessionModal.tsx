@@ -70,7 +70,6 @@ const EditSessionModal = ({ isOpen, onClose }: Props) => {
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-    console.log("data", data);
     editSessionMutation.mutate({ id: diveId, requestBody: data });
     onClose();
   };
@@ -79,9 +78,17 @@ const EditSessionModal = ({ isOpen, onClose }: Props) => {
     if (sessions) {
       const sessionData = sessions.find((session) => session._id === diveId);
       if (sessionData) {
-        reset({ dives: sessionData.dives });
+        const formattedDives = sessionData.dives.map((dive) => ({
+          ...dive,
+          discipline: DisciplineOptions.find(
+            (option) => option.value === dive.discipline.toString()
+          ),
+          mood: MoodOptions.find(
+            (option) => option.value === dive.mood.toString()
+          ),
+        }));
+        reset({ dives: formattedDives });
       }
-      console.log("sessionData", sessionData);
     }
   }, [sessions, reset, diveId]);
 
@@ -165,6 +172,7 @@ const EditSessionModal = ({ isOpen, onClose }: Props) => {
                         <Controller
                           control={control}
                           name={`dives.${index}.mood`}
+                          defaultValue={field.mood}
                           render={({ field }) => (
                             <Select
                               {...field}
