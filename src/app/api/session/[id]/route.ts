@@ -8,7 +8,11 @@ export async function DELETE(
 ) {
   const id = context.params.id;
   await connectMongoDB();
-  await Session.findByIdAndDelete(id);
+
+  const session = await Session.findByIdAndDelete(id);
+  if (!session) {
+    return NextResponse.json({ message: "Session not found" }, { status: 404 });
+  }
   return NextResponse.json({ message: "Session deleted" });
 }
 
@@ -17,7 +21,12 @@ export async function GET(
   context: { params: { id: string } }
 ) {
   await connectMongoDB();
+
   const session = await Session.findById(context.params.id);
+  if (!session) {
+    return NextResponse.json({ message: "Session not found" }, { status: 404 });
+  }
+
   return NextResponse.json(session);
 }
 
@@ -27,7 +36,30 @@ export async function PUT(
 ) {
   const id = context.params.id;
   const requestBody = await req.json();
+  const dives = requestBody?.dives;
+
+  if (!dives) {
+    return NextResponse.json(
+      { message: "Dives data is missing in the request." },
+      { status: 400 }
+    );
+  }
+
   await connectMongoDB();
-  await Session.findByIdAndUpdate(id, requestBody);
+
+  const formattedDives = dives.map((dive: any) => ({
+    discipline: dive.discipline.value,
+    time: dive.time,
+    depth: dive.depth,
+    mood: dive.mood.value,
+  }));
+
+  const session = await Session.findByIdAndUpdate(id, {
+    dives: formattedDives,
+  });
+  if (!session) {
+    return NextResponse.json({ message: "Session not found" }, { status: 404 });
+  }
+
   return NextResponse.json({ message: "Session updated" });
 }
