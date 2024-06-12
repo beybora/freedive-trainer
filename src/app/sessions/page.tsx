@@ -14,11 +14,15 @@ import {
 import { useDives } from "../api/hooks";
 import EditSessonModal from "@/components/EditSessionModal";
 import { useSession } from "next-auth/react";
+import EditSessionModal from "@/components/EditSessionModal";
 
 const Dives = () => {
   const { data, isError, isLoading } = useDives();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data: session } = useSession();
+
+  const handleEditOpen = () => {
+    onOpen();
+  };
 
   if (isLoading)
     return (
@@ -76,12 +80,12 @@ const Dives = () => {
           >
             {data?.map((dive) => (
               <GridItem key={dive._id}>
-                <DiveCard dive={dive} />
+                <DiveCard dive={dive} onEdit={handleEditOpen}  />
               </GridItem>
             ))}
           </Grid>
         </Box>
-        <EditSessonModal onClose={onClose} isOpen={isOpen} />
+        <EditSessionModal onClose={onClose} isOpen={isOpen} />
       </Box>
     </Box>
   );
