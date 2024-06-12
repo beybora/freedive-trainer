@@ -3,8 +3,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getDivesQueryKey } from "@/app/api/hooks/useDives";
 import { Inputs } from "@/constants/optionsAndTypes" ;
 
-type OptionType = { label: string; value?: string };
-
 export const addDive = async (data: Inputs) => {
   const response = await fetch("/api/session", {
     method: "POST",

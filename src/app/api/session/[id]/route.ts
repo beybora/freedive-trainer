@@ -21,7 +21,7 @@ export async function GET(
   return NextResponse.json(session);
 }
 
-export async function UPDATE(
+export async function PUT(
   req: NextRequest,
   context: { params: { id: string } }
 ) {
