@@ -20,25 +20,28 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import EditSessonModal from "./EditSessionModal";
+import { useAppContext } from "@/context";
 
 type Props = {
   dive: Session;
+  onEdit: () => void;
 };
 
-const DiveCard = ({ dive }: Props) => {
+const DiveCard = ({ dive, onEdit }: Props) => {
   const formattedDate = new Date(dive.createdAt).toDateString();
   const deleteDiveMutation = useDeleteDive();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { setDiveId } = useAppContext();
 
   const handleDelete = (id: string) => {
-    deleteDiveMutation.mutate(id); // Call the hook with the dive id
+    deleteDiveMutation.mutate(id);
   };
-
+  
+  const handleEdit = () => {
+    setDiveId(dive._id);
+  };
 
   return (
     <>
-      <EditSessonModal onClose={onClose} isOpen={isOpen} />
       <Card position={"relative"} variant={"elevated"}>
         <HStack gap="5">
           <CloseButton
@@ -60,7 +63,10 @@ const DiveCard = ({ dive }: Props) => {
             fontSize="10px"
             size="sm"
             icon={<EditIcon />}
-            onClick={onOpen}
+            onClick={() => {
+              handleEdit();
+              onEdit();
+            }}
           />
         </CardHeader>
         <CardBody>
@@ -78,10 +84,10 @@ const DiveCard = ({ dive }: Props) => {
                 {dive.dives.map((dive, index: number) => {
                   return (
                     <Box key={index} paddingBottom={2}>
-                      <Text>Discipline: {dive.discipline.label}</Text>
+                      <Text>Discipline: {dive.discipline.toString()}</Text>
                       <Text>Time: {dive.time}min</Text>
                       <Text>Depth: {dive.depth}m</Text>
-                      <Text>Mood: {dive.mood.label}</Text>
+                      <Text>Mood: {dive.mood.toString()}</Text>
                     </Box>
                   );
                 })}

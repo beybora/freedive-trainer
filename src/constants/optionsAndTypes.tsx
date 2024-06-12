@@ -43,3 +43,7 @@ export type Session = {
   createdAt: string;
   dives: Dive[];
 };
+
+export type Inputs = {
+  dives: Dive[];
+};

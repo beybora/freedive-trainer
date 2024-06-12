@@ -14,7 +14,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const dives = requestBody?.dives;
 
     if (!dives) {
-      throw new Error("Dives data is missing in the request.");
+      return NextResponse.json(
+        { message: "Dives data is missing in the request." },
+        { status: 400 }
+      );
     }
 
     await connectMongoDB();
