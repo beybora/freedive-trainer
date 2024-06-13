@@ -1,6 +1,7 @@
 "use client";
 
 import DiveCard from "@/components/DiveCard";
+import GroupTrainingButton from "@/components/GroupTrainingButton";
 import {
   Box,
   VStack,
@@ -50,7 +51,7 @@ const Dives = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Button>Create a Dive Session</Button>
+      <GroupTrainingButton/>
         </Box>
         <Box
           display="flex"

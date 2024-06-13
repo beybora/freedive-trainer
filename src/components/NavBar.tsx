@@ -76,8 +76,8 @@ const NavBar = () => {
             <MenuItem onClick={() => router.push("/sessions")}>
               My Sessions
             </MenuItem>
-            <MenuItem onClick={() => router.push("/buddy-to-buddy")}>
-              Buddy up
+            <MenuItem onClick={() => router.push("/group-training")}>
+              Group Training
             </MenuItem>
             <MenuItem onClick={() => signOut()}>Logout</MenuItem>
           </MenuList>
