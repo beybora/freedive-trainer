@@ -49,7 +49,7 @@ const defaultDive = {
   mood: MoodOptions[1],
 };
 
-const AddNewSessionModal = ({ isOpen, onClose }: Props) => {
+const AddSessionModal = ({ isOpen, onClose }: Props) => {
   const addDiveMutation = useAddDive();
 
   const {
@@ -198,4 +198,4 @@ const AddNewSessionModal = ({ isOpen, onClose }: Props) => {
   );
 };
 
-export default AddNewSessionModal;
+export default AddSessionModal;

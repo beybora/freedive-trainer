@@ -1,6 +1,6 @@
 "use client";
 
-import AddNewEntryButton from "@/components/AddNewSessionButton";
+import AddSessionButton from "@/components/AddSessionButton";
 import DiveCard from "@/components/DiveCard";
 import {
   Box,
@@ -9,13 +9,10 @@ import {
   Grid,
   GridItem,
   useDisclosure,
-  Button,
 } from "@chakra-ui/react";
 import { useDives } from "../api/hooks";
-import EditSessonModal from "@/components/EditSessionModal";
-import { useSession } from "next-auth/react";
+
 import EditSessionModal from "@/components/EditSessionModal";
-import { useEditSession } from "../api/hooks/useEditSession";
 
 const Dives = () => {
   const { data, isError, isLoading } = useDives();
@@ -59,7 +56,7 @@ const Dives = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <AddNewEntryButton />
+          <AddSessionButton />
         </Box>
         <Box
           display="flex"
