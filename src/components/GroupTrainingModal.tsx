@@ -1,5 +1,6 @@
 import {
   Button,
+  Checkbox,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -12,24 +13,22 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { useEffect, useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import { GroupTraining } from "@/constants/optionsAndTypes";
+import { useAddGroupTraining } from "@/app/api/hooks/useAddGroupTraining";
+
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-type FormValues = {
-  place: string;
-  datetime: Date;
-  number: number;
-  depth: number;
-};
 
-const onSubmit = (data: FormValues) => {
+
+const onSubmit = (data: GroupTraining) => {
   console.log("data: ", data);
 };
 
@@ -49,9 +48,18 @@ const steps = [
 ];
 
 const GroupTrainingModal = ({ isOpen, onClose }: Props) => {
-  const { register, control, handleSubmit, formState, reset } = useForm<FormValues>();
+  const form = useForm<GroupTraining>();
+  const { register, control, handleSubmit, formState, reset } = form;
   const { errors } = formState;
   const [currentStep, setCurrentStep] = useState(0);
+  const addGroupTraining = useAddGroupTraining()
+
+  useEffect(() => {
+    if (!isOpen) {
+      setCurrentStep(0);
+      reset();
+    }
+  }, [isOpen]);
 
   const next = () => {
     if (currentStep < steps.length - 1) {
@@ -65,12 +73,11 @@ const GroupTrainingModal = ({ isOpen, onClose }: Props) => {
     }
   };
 
-  useEffect(() => {
-    if (!isOpen) {
-      setCurrentStep(0);
-      reset();
-    }
-  }, [isOpen]);
+  const onSubmit: SubmitHandler<GroupTraining> = async (data: GroupTraining) => {
+    console.log("data: ", data);
+    addGroupTraining.mutate(data)
+    onClose();
+  };
 
   return (
     <>
@@ -82,32 +89,32 @@ const GroupTrainingModal = ({ isOpen, onClose }: Props) => {
             <ModalBody>
               {currentStep === 0 && (
                 <>
-                  <FormControl isInvalid={!!errors.place}>
+                  <FormControl isInvalid={!!errors.location}>
                     <FormLabel>Where do you want to dive?</FormLabel>
                     <Input
                       type="text"
                       id="place"
-                      placeholder="Place"
-                      {...register("place", {
+                      placeholder="location"
+                      {...register("location", {
                         required: "This field is required",
                       })}
                     />
                     <FormErrorMessage>
-                      {errors.place && errors.place.message}
+                      {errors.location && errors.location.message}
                     </FormErrorMessage>
                   </FormControl>
-                  <FormControl isInvalid={!!errors.datetime}>
+                  <FormControl isInvalid={!!errors.dateTime}>
                     <FormLabel>Which day and which time?</FormLabel>
                     <Input
                       type="datetime-local"
                       id="datetime"
                       placeholder="Select Date and Time"
-                      {...register("datetime", {
+                      {...register("dateTime", {
                         required: "This field is required",
                       })}
                     />
                     <FormErrorMessage>
-                      {errors.datetime && errors.datetime.message}
+                      {errors.dateTime && errors.dateTime.message}
                     </FormErrorMessage>
                   </FormControl>
                 </>
@@ -128,6 +135,24 @@ const GroupTrainingModal = ({ isOpen, onClose }: Props) => {
                       {errors.number && errors.number.message}
                     </FormErrorMessage>
                   </FormControl>
+                  {/* <FormControl>
+                    <FormLabel>How was your mood?</FormLabel>
+                    <Controller
+                      control={control}
+                     id="disciplines"
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          options={MoodOptions}
+                          placeholder="Select moods!"
+                        />
+                      )}
+                    />
+                    <FormErrorMessage>
+                      {errors.dives?.[index]?.mood &&
+                        errors.dives?.[index]?.mood?.message}
+                    </FormErrorMessage>
+                  </FormControl> */}
                   <FormControl isInvalid={!!errors.number}>
                     <FormLabel>What is your targeted depth?</FormLabel>
                     <Input
@@ -144,7 +169,14 @@ const GroupTrainingModal = ({ isOpen, onClose }: Props) => {
                   </FormControl>
                 </>
               )}
-              {currentStep === 2 && <></>}
+              {currentStep === 2 && (
+                <>
+                  <FormControl>
+                    <FormLabel>Do you have your own Buoy?</FormLabel>
+                    <Checkbox colorScheme="green" {...register("hasBuoy")} />
+                  </FormControl>
+                </>
+              )}
             </ModalBody>
             <ModalFooter>
               {currentStep > 0 && (
