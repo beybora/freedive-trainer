@@ -52,6 +52,9 @@ const EditSessionModal = ({ isOpen, onClose }: Props) => {
   const editSessionMutation = useEditSession();
   const { data: sessions, isError, isLoading } = useDives();
   const { diveId, setDiveId } = useAppContext();
+  const form = useForm<Inputs>({
+    defaultValues: { dives: [] },
+  });
 
   const {
     register,
@@ -60,9 +63,7 @@ const EditSessionModal = ({ isOpen, onClose }: Props) => {
     formState: { errors },
     control,
     reset,
-  } = useForm<Inputs>({
-    defaultValues: { dives: [] },
-  });
+  } = form;
 
   const { fields, append, remove } = useFieldArray({
     control: formControl,

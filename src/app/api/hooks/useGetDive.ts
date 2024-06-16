@@ -1,7 +1,7 @@
 import { Session } from "@/constants/optionsAndTypes";
 import { useQuery } from "@tanstack/react-query";
 
-export const getDive = async (diveId: string): Promise<Session> => {
+const getDive = async (diveId: string): Promise<Session> => {
   const response = await fetch(`/api/session/${diveId}`);
   return response.json();
 };

@@ -29,11 +29,17 @@ export async function POST(req: NextRequest, res: NextResponse) {
       mood: dive.mood.value,
     }));
 
-    await Session.create({ dives: formattedDives });
+    const createdSession = await Session.create({ dives: formattedDives });
+
+    if (!createdSession) {
+      return NextResponse.json(
+        { message: "Failed to create Session" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ message: "Session created" }, { status: 201 });
   } catch (error) {
-    console.error("Error creating session:", error);
     return NextResponse.json(
       { message: "Failed to create session" },
       { status: 500 }

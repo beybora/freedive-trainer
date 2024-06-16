@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { getDivesQueryKey } from "@/app/api/hooks/useDives";
-import { Inputs } from "@/constants/optionsAndTypes" ;
+import { Inputs } from "@/constants/optionsAndTypes";
 
-export const addDive = async (data: Inputs) => {
+const addDive = async (data: Inputs) => {
   const response = await fetch("/api/session", {
     method: "POST",
     body: JSON.stringify(data),

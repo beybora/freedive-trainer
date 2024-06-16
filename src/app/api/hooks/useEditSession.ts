@@ -2,7 +2,7 @@ import { Inputs } from "@/constants/optionsAndTypes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getDivesQueryKey } from "./useDives";
 
-export const editSession = async (id: string, requestBody: Inputs) => {
+const editSession = async (id: string, requestBody: Inputs) => {
   const response = await fetch(`/api/session/${id}`, {
     method: "PUT",
     body: JSON.stringify(requestBody),
