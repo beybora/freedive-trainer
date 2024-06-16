@@ -47,3 +47,11 @@ export type Session = {
 export type Inputs = {
   dives: Dive[];
 };
+
+export type GroupTraining = {
+  location: String;
+  dateTime: Date;
+  number: number;
+  depth: number;
+  hasBuoy: boolean;
+};
