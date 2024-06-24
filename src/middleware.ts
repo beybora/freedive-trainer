@@ -8,11 +8,17 @@ export async function middleware(request: NextRequest) {
     secret: process.env.NEXTAUTH_SECRET,
   });
 
-  console.log("token", token);
+  console.log("token", token?.sub);
 
   const publicPaths = path === "/";
-  const protectedPaths = path === "/sessions" || path === "/buddy-to-buddy" || path === "/sessions/[id]";
+  const protectedPaths =
+    path === "/sessions" ||
+    path === "/buddy-to-buddy" ||
+    path === "/sessions/[id]";
+
   if (token) {
+    request.headers.set("userId", token?.sub ?? "");
+
     if (publicPaths) {
       return NextResponse.redirect(new URL("/sessions", request.nextUrl));
     }
