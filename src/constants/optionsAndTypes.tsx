@@ -50,7 +50,10 @@ export type Inputs = {
 
 export type GroupTraining = {
   location: String;
-  dateTime: Date;
+  title: String;
+  description: String;
+  date: Date;
+  participants: String[];
   number: number;
   depth: number;
   hasBuoy: boolean;
