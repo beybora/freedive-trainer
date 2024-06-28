@@ -3,15 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 import { getDivesQueryKey } from "./useDives";
 
 const getAllGroupTraining = async (): Promise<GroupTraining[]> => {
-  const response = await fetch("api/group-training");
+  const response = await fetch("/api/group-training");
   return response.json();
 };
 
-export const getAllGroupTrainingQueryKey = () => ["get-all-group-training"];
+export const getAllGroupTrainingQueryKey = () => ["group-training"];
 
 export const useGetAllGroupTraining = () => {
   return useQuery({
     queryFn: getAllGroupTraining,
-    queryKey: getDivesQueryKey(),
+    queryKey: getAllGroupTrainingQueryKey(),
   });
 };
