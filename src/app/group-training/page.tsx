@@ -33,6 +33,7 @@ const Dives = () => {
       width="100%"
       h="91.5vh"
       padding="15px"
+      gap={6}
     >
       <SideBar />
       <Content />
