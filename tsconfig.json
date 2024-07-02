@@ -4,8 +4,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "middleware.ts"
-, "src/app/api/hooks/sessions/useDeleteSession.ts"  ],
+    "middleware.ts",
+    "libs/mongodb.js"
+  ],
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

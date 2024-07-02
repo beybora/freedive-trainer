@@ -8,7 +8,7 @@ const useRealTimeUpdates = () => {
   const [socket, setSocket] = useState(undefined);
 
   useEffect(() => {
-    const socket = io(process.env.SOCKET_SERVER_URL || 'http://localhost:4000', {});
+    const socket = io(process.env.SOCKET_SERVER_URL ||  "", {});
     const handleRealtimeUpdate = () => {
       try {
         queryClient.invalidateQueries({
