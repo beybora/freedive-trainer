@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useMemo, useState } from "react";
-import { io, Socket } from "socket.io-client";
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
 import { getAllGroupTrainingQueryKey } from "./groupTraining/useGetAllGroupTraining";
 
 const useRealTimeUpdates = () => {
@@ -8,7 +8,7 @@ const useRealTimeUpdates = () => {
   const [socket, setSocket] = useState(undefined);
 
   useEffect(() => {
-    const socket = io("http://localhost:4000", {});
+    const socket = io(process.env.SOCKET_SERVER_URL || 'http://localhost:4000', {});
     const handleRealtimeUpdate = () => {
       try {
         queryClient.invalidateQueries({
