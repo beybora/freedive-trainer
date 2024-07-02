@@ -1,19 +1,21 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 interface GroupTrainingDocument extends Document {
+  _id: mongoose.Types.ObjectId; 
   location: string;
   title: string;
   description: string;
   date: Date;
-  diveNumber: Number;
-  participantLimit: Number;
-  depth: Number;
-  hasBuoy: Boolean;
+  diveNumber: number; 
+  participantLimit: number;
+  depth: number; 
+  hasBuoy: boolean; 
   participants: mongoose.Types.ObjectId[];
 }
 
 const groupTrainingSchema = new Schema<GroupTrainingDocument>(
   {
+    _id: mongoose.Types.ObjectId,
     location: String,
     title: String,
     description: String,
@@ -26,14 +28,6 @@ const groupTrainingSchema = new Schema<GroupTrainingDocument>(
   },
   { timestamps: true }
 );
-
-groupTrainingSchema.virtual("id").get(function () {
-  return this._id.toHexString();
-});
-
-groupTrainingSchema.set("toJSON", {
-  virtuals: true,
-});
 
 const GroupTraining =
   mongoose.models.GroupTraining ||

@@ -1,4 +1,4 @@
-"use client";
+
 
 import {
   Box,
@@ -30,11 +30,11 @@ const Content = () => {
   const participantIds = groupTrainingData?.participants;
 
   const handleAdd = () => {
-    addUserToGroupMutation.mutate(groupTrainingData?._id);
+    addUserToGroupMutation.mutate( groupTrainingData?._id || "" );
   };
 
   const handleLeave = () => {
-    leaveUserFromGroupMutation.mutate(groupTrainingData?._id);
+    leaveUserFromGroupMutation.mutate(groupTrainingData?._id || "" );
   };
 
   const handleBack = () => {
@@ -97,7 +97,7 @@ const Content = () => {
             )}
           </Box>
         </Box>
-        {groupTrainingData && (
+        {groupTrainingData ? (
           <Box
             display="flex"
             justifyContent="space-between"
@@ -128,14 +128,14 @@ const Content = () => {
               </GridItem>
               <GridItem colSpan={2} bg="light-grey" padding="3">
                 <Box>
-                  {groupTrainingData && (
+                  {groupTrainingData ? (
                     <ParticipantList participantIds={participantIds} />
-                  )}
+                  ) : null}
                 </Box>
               </GridItem>
             </Grid>
           </Box>
-        )}
+        ) : null}
       </>
     </Box>
   );

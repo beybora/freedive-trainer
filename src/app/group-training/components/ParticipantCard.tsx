@@ -1,5 +1,5 @@
 import { useGetUserById } from "@/app/api/hooks/user/useGetUserById";
-import { Box, Card, CardBody, CardHeader, Heading } from "@chakra-ui/react";
+import {  Card, CardBody, CardHeader, Heading } from "@chakra-ui/react";
 
 type Props = {
   participantId: string;

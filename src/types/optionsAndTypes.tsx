@@ -49,6 +49,7 @@ export type Inputs = {
 };
 
 export type GroupTraining = {
+  _id: string;
   location: String;
   title: String;
   description: String;
