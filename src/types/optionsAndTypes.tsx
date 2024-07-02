@@ -54,7 +54,8 @@ export type GroupTraining = {
   description: String;
   date: Date;
   participants: String[];
-  number: number;
+  diveNumber: number;
+  participantLimit: number;
   depth: number;
   hasBuoy: boolean;
 };
