@@ -27,8 +27,9 @@ import {
   DisciplineOptions,
   MoodOptions,
   Dive,
+  Session,
 } from "@/types/optionsAndTypes";
-import { useDives } from "@/app/api/hooks/sessions/useDives";
+import { useGetAllSessions } from "@/app/api/hooks/sessions/useGetAllSessions";
 import { useAppContext } from "@/context";
 import { useEditSession } from "@/app/api/hooks/sessions/useEditSession";
 
@@ -50,7 +51,7 @@ const defaultDive = {
 
 const EditSessionModal = ({ isOpen, onClose }: Props) => {
   const editSessionMutation = useEditSession();
-  const { data: sessions, isError, isLoading } = useDives();
+  const { data: sessions, isError, isLoading } = useGetAllSessions();
   const { diveId, setDiveId } = useAppContext();
   const form = useForm<Inputs>({
     defaultValues: { dives: [] },
@@ -77,9 +78,9 @@ const EditSessionModal = ({ isOpen, onClose }: Props) => {
 
   useEffect(() => {
     if (sessions) {
-      const sessionData = sessions.find((session) => session._id === diveId);
+      const sessionData = sessions.find((session: Session) => session._id === diveId);
       if (sessionData) {
-        const formattedDives = sessionData.dives.map((dive) => ({
+        const formattedDives = sessionData.dives.map((dive: Dive) => ({
           ...dive,
           discipline: DisciplineOptions.find(
             (option) => option.value === dive.discipline.toString()

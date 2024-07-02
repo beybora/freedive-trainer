@@ -1,6 +1,6 @@
 import { Session } from "@/types/optionsAndTypes";
 import { EditIcon } from "@chakra-ui/icons";
-import { useDeleteDive } from "@/app/api/hooks/sessions/useDeleteDive";
+import { useDeleteSession } from "@/app/api/hooks/sessions/useDeleteSession";
 import {
   Accordion,
   AccordionButton,
@@ -12,12 +12,10 @@ import {
   CardBody,
   CardHeader,
   CloseButton,
-  Divider,
   HStack,
   Heading,
   IconButton,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import { useAppContext } from "@/context";
@@ -29,11 +27,11 @@ type Props = {
 
 const DiveCard = ({ dive, onEdit }: Props) => {
   const formattedDate = new Date(dive.createdAt).toDateString();
-  const deleteDiveMutation = useDeleteDive();
+  const deleteSessionMutation = useDeleteSession();
   const { setDiveId } = useAppContext();
 
   const handleDelete = (id: string) => {
-    deleteDiveMutation.mutate(id);
+    deleteSessionMutation.mutate(id);
   };
   
   const handleEdit = () => {
