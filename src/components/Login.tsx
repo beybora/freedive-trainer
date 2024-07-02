@@ -14,7 +14,6 @@ import {
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -35,7 +34,6 @@ const Login = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    console.log("user", user);
     try {
       if (!user.email || !user.password) {
         toast({
@@ -85,8 +83,7 @@ const Login = () => {
         isClosable: true,
         position: "bottom",
       });
-      router.push("/sessions")
-
+      router.push("/sessions");
     } catch (error: any) {
       toast({
         title: error.message,

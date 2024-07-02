@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Session } from "@/constants/optionsAndTypes";
+import { Session } from "@/types/optionsAndTypes";
 
 const getDives = async (): Promise<Session[]> => {
   const response = await fetch("/api/session");
@@ -7,11 +7,11 @@ const getDives = async (): Promise<Session[]> => {
   // validate the response tzpe using zod
 };
 
-export const getDivesQueryKey = () => ["dives"];
+export const getAllSessionsQueryKey = () => ["dives"];
 
-export const useDives = () => {
+export const useGetAllSessions = () => {
   return useQuery({
-    queryKey: getDivesQueryKey(),
+    queryKey: getAllSessionsQueryKey(),
     queryFn: getDives,
   });
 };

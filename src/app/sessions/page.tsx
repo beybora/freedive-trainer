@@ -1,7 +1,7 @@
 "use client";
 
-import AddSessionButton from "@/components/AddSessionButton";
-import DiveCard from "@/components/DiveCard";
+import AddSessionButton from "@/app/sessions/components/AddSessionButton"
+import DiveCard from "@/app/sessions/components/DiveCard";
 import {
   Box,
   VStack,
@@ -10,12 +10,14 @@ import {
   GridItem,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useDives } from "../api/hooks";
 
-import EditSessionModal from "@/components/EditSessionModal";
+
+import EditSessionModal from "@/app/sessions/components/EditSessionModal";
+import { useGetAllSessions } from "../api/hooks";
+import { Session } from "@/types/optionsAndTypes";
 
 const Dives = () => {
-  const { data, isError, isLoading } = useDives();
+  const { data, isLoading } = useGetAllSessions();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleEditOpen = () => {
@@ -76,9 +78,9 @@ const Dives = () => {
             gap={6}
             overflowY="scroll"
           >
-            {data?.map((dive) => (
-              <GridItem key={dive._id}>
-                <DiveCard dive={dive} onEdit={handleEditOpen} />
+            {data?.map((session: Session) => (
+              <GridItem key={session._id}>
+                <DiveCard dive={session} onEdit={handleEditOpen} />
               </GridItem>
             ))}
           </Grid>

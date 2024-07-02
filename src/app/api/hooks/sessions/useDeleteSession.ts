@@ -1,21 +1,22 @@
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import { getDivesQueryKey } from "@/app/api/hooks/useDives";
+import { getAllSessionsQueryKey } from "./useGetAllSessions";
 
-export const deleteDive = async (id: string) => {
-  console.log()
+
+const deleteSession = async (id: string) => {
+  console.log();
   const response = await fetch(`/api/session/${id}`, {
     method: "DELETE",
   });
   return response.json();
 };
 
-export const useDeleteDive = () => {
+export const useDeleteSession = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id: string) => deleteDive(id),
+    mutationFn: (id: string) => deleteSession(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: getDivesQueryKey() });
+      queryClient.invalidateQueries({ queryKey: getAllSessionsQueryKey() });
     },
   });
 };

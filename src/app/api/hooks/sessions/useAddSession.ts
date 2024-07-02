@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import { getDivesQueryKey } from "@/app/api/hooks/useDives";
-import { Inputs } from "@/constants/optionsAndTypes" ;
+import { Inputs } from "@/types/optionsAndTypes";
+import { getAllSessionsQueryKey } from "./useGetAllSessions";
 
-export const addDive = async (data: Inputs) => {
+const addSession= async (data: Inputs) => {
   const response = await fetch("/api/session", {
     method: "POST",
     body: JSON.stringify(data),
@@ -11,12 +11,12 @@ export const addDive = async (data: Inputs) => {
   return response.json();
 };
 
-export const useAddDive = () => {
+export const useAddSession = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (data: Inputs) => addDive(data),
+    mutationFn: (data: Inputs) => addSession(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: getDivesQueryKey() });
+      queryClient.invalidateQueries({ queryKey: getAllSessionsQueryKey() });
     },
   });
 };

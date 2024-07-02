@@ -13,7 +13,6 @@ import {
   FormLabel,
   Input,
   FormErrorMessage,
-  useBoolean,
   VStack,
   Heading,
   Divider,
@@ -26,12 +25,12 @@ import {
   Controller,
   useFieldArray,
 } from "react-hook-form";
-import { useAddDive } from "@/app/api/hooks/useAddDive";
+import { useAddSession } from "@/app/api/hooks/sessions/useAddSession";
 import {
   DisciplineOptions,
   MoodOptions,
   Dive,
-} from "@/constants/optionsAndTypes";
+} from "@/types/optionsAndTypes";
 
 type Props = {
   isOpen: boolean;
@@ -50,7 +49,7 @@ const defaultDive = {
 };
 
 const AddSessionModal = ({ isOpen, onClose }: Props) => {
-  const addDiveMutation = useAddDive();
+  const addSessionMutation = useAddSession();
 
   const {
     register,
@@ -71,7 +70,7 @@ const AddSessionModal = ({ isOpen, onClose }: Props) => {
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-    addDiveMutation.mutate(data);
+    addSessionMutation.mutate(data);
     onClose();
     reset({ dives: [defaultDive] });
   };
