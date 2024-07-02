@@ -82,7 +82,7 @@ const GroupTrainingModal = ({ isOpen, onClose }: Props) => {
           <ModalOverlay />
           <ModalContent padding="2rem">
             <ModalBody>
-              {currentStep === 0 && (
+              {currentStep === 0 ? (
                 <VStack gap="5">
                   <Heading size="md">Date and Location</Heading>
                   <FormControl isInvalid={!!errors.location}>
@@ -114,8 +114,8 @@ const GroupTrainingModal = ({ isOpen, onClose }: Props) => {
                     </FormErrorMessage>
                   </FormControl>
                 </VStack>
-              )}
-              {currentStep === 1 && (
+              ) : null}
+              {currentStep === 1 ? (
                 <VStack gap="5">
                   <Heading size="md">Own diving plans</Heading>
                   <FormControl isInvalid={!!errors.diveNumber}>
@@ -147,7 +147,7 @@ const GroupTrainingModal = ({ isOpen, onClose }: Props) => {
                     </FormErrorMessage>
                   </FormControl>
                 </VStack>
-              )}
+              ) : null}
               {currentStep === 2 && (
                 <VStack gap="5">
                   <FormControl isInvalid={!!errors.title}>
@@ -183,15 +183,14 @@ const GroupTrainingModal = ({ isOpen, onClose }: Props) => {
               )}
             </ModalBody>
             <ModalFooter>
-              {currentStep > 0 && (
+              {currentStep > 0 ? (
                 <Button
                   mr={3}
                   onClick={prev}
                   colorScheme="blackAlpha"
                   leftIcon={<ArrowLeftIcon />}
                 />
-              )}
-
+              ) : null}
               {currentStep === steps.length - 1 ? (
                 <Button
                   colorScheme="blue"
