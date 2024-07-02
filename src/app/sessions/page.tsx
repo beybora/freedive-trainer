@@ -1,7 +1,7 @@
 "use client";
 
-import AddSessionButton from "@/components/AddSessionButton";
-import DiveCard from "@/components/DiveCard";
+import AddSessionButton from "@/app/sessions/components/AddSessionButton"
+import DiveCard from "@/app/sessions/components/DiveCard";
 import {
   Box,
   VStack,
@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useDives } from "../api/hooks";
 
-import EditSessionModal from "@/components/EditSessionModal";
+import EditSessionModal from "@/app/sessions/components/EditSessionModal";
 
 const Dives = () => {
   const { data, isError, isLoading } = useDives();
