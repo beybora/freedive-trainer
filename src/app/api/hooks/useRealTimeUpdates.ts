@@ -6,8 +6,7 @@ import { getAllGroupTrainingQueryKey } from "./groupTraining/useGetAllGroupTrain
 const useRealTimeUpdates = () => {
   const queryClient = useQueryClient();
   const [socket, setSocket] = useState(undefined);
-  const port = "https://freedive-trainer-socket-server.onrender.com";
-
+  const port = process.env.SOCKET_SERVER_URL || "http://localhost:4000";
   useEffect(() => {
     const socket = io(port, {});
     const handleRealtimeUpdate = () => {
