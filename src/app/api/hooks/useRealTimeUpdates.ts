@@ -6,9 +6,9 @@ import { getAllGroupTrainingQueryKey } from "./groupTraining/useGetAllGroupTrain
 const useRealTimeUpdates = () => {
   const queryClient = useQueryClient();
   const [socket, setSocket] = useState(undefined);
-
+  const port = process.env.SOCKET_SERVER_URL || "http://localhost:4000";
   useEffect(() => {
-    const socket = io(process.env.SOCKET_SERVER_URL ||  "", {});
+    const socket = io(port, {});
     const handleRealtimeUpdate = () => {
       try {
         queryClient.invalidateQueries({
@@ -17,7 +17,6 @@ const useRealTimeUpdates = () => {
         console.log("Queries invalidated successfully");
       } catch (error) {
         console.error("Error invalidating queries:", error);
-        // Optionally handle or log the error further if needed
       }
     };
 
